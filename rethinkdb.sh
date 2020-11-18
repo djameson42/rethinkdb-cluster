@@ -2,4 +2,5 @@
 
 JOINS=`getent hosts tasks.rethinkdb | awk '{ print $1 }' | sed -e 's/^/--join /' | tr '\n' ' '`
 echo "Starting rethinkdb using $JOINS"
-rethinkdb --bind all --no-http-admin $JOINS
+$HOSTNAME=`hostname -i`
+rethinkdb --bind all --no-http-admin --canonical-address $HOSTNAME $JOINS
